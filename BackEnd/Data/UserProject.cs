@@ -1,7 +1,8 @@
-﻿namespace BugTracker.Models
+﻿namespace BackEnd.Data
 {
-    public class AssignedUser
+    public class UserProject
     {
+        
         public int UserId { get; set; }
         public User User { get; set; }
 

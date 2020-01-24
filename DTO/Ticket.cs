@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BugTracker.Models
+namespace DTO
 {
     public class Ticket
     {
@@ -16,30 +16,34 @@ namespace BugTracker.Models
         public String Description { get; set; }
         
         [Required]
-        [StringLength(200)]
+        [StringLength(10)]
         public String Priority { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(10)]
         public String Status { get; set; } = "open";
 
         [Required]
-        [StringLength(200)]
+        [StringLength(50)]
+        [Display(Name ="Ticket Type")]
         public String TicketType { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name ="Created On")]
         public DateTime CreatedOn { get; set; }
 
-        public int AssignedDevId { get; set; }
-        public User AssignedDev { get; set; }
+        [Display(Name ="Assigned Developer")]
+        public int? AssignedDevId { get; set; }
 
         [Required]
+        [Display(Name ="Submitted By")]
         public int SubmittedById { get; set; }
-        public User SubmittedBy { get; set; }
 
         [Required]
+        [Display(Name ="Project")]
         public int ProjectId { get; set; }
-        public Project Project { get; set; }
 
     }
 }

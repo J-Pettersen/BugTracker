@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BugTracker.Models
+namespace DTO
 {
     public class User
     {
+
         public int Id { get; set; }
 
         [Required]
@@ -16,12 +17,8 @@ namespace BugTracker.Models
         [StringLength(256)]
         public String EmailAddress { get; set; }
 
-        [StringLength(200)]
+        [StringLength(50)]
         public String Role { get; set; }
 
-        public Project ProjectManaged { get; set; }
-        public List<Ticket> Tickets { get; set;}
-
-        public List<AssignedUser> AssignedUsers { get; set; }
     }
 }
