@@ -7,7 +7,7 @@ namespace BackEnd.Data
     public class User : DTO.User
     {
 
-        public virtual ICollection<UserProject> UsersProjects { get; set; }
+        public virtual ICollection<UserProject> UsersProjects { get; set; } = new List<UserProject>();
 
         public virtual ICollection<Project> ProjectsManaged { get; set; }
 

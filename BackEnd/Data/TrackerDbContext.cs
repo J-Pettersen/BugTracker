@@ -1,18 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BackEnd.Data
 {
-    public class BTContext : DbContext
+    public class TrackerDBContext : DbContext
     {
-        public BTContext(DbContextOptions<BTContext> options)
+        public TrackerDBContext(DbContextOptions<TrackerDBContext> options)
             : base(options)
         {            
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {

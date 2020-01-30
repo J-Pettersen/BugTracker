@@ -10,7 +10,7 @@ namespace DTO
 
         [Required]
         [StringLength(200)]
-        public String Name { get; set; }
+        public String Title { get; set; }
 
         [Required]
         [StringLength(4000)]
