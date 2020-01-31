@@ -15,6 +15,8 @@ namespace DTO
 
         [Required]
         [StringLength(256)]
+
+        [Display(Name = "Email Address")]
         public String EmailAddress { get; set; }
 
         [StringLength(50)]
