@@ -53,7 +53,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProjectResponse>> Post(DTO.Project input)
+        public async Task<ActionResult<ProjectResponse>> PostProject(DTO.Project input)
         {
             var project = new Data.Project
             {
@@ -73,7 +73,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, DTO.Project input)
+        public async Task<IActionResult> PutProject(int id, DTO.Project input)
         {
             var project = await _db.Projects.FindAsync(id);
 
@@ -94,7 +94,7 @@ namespace BackEnd.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProjectResponse>> Delete(int id)
+        public async Task<ActionResult<ProjectResponse>> DeleteProject(int id)
         {
             var project = await _db.Projects.FindAsync(id);
 

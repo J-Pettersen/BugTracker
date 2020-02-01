@@ -54,13 +54,13 @@ namespace BackEnd.Controllers
         }
 
         [HttpGet("{email}/projects")]
-        public async Task<ActionResult<List<ProjectResponse>>> GetProjects(string emailAddress)
+        public async Task<ActionResult<List<ProjectResponse>>> GetProjects(string email)
         {
             var projects = await _db.Projects.AsNoTracking()
                                              .Include(p => p.ProjectManager)
                                              .Include(u => u.UsersProjects)
                                                  .ThenInclude(p => p.Project)
-                                             .Where(up => up.UsersProjects.Any(u => u.User.EmailAddress == emailAddress))
+                                             .Where(up => up.UsersProjects.Any(u => u.User.EmailAddress == email))
                                              .Select(p => p.MapProjectResponse())
                                              .ToListAsync();
 
