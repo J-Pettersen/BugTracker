@@ -10,8 +10,7 @@ namespace DTO
         [Required]
         [StringLength(200)]
         public String Title { get; set; }
-
-        [Required]
+        
         [StringLength(4000)]
         public String Description { get; set; }
         
@@ -37,13 +36,11 @@ namespace DTO
         [Display(Name ="Assigned Developer")]
         public int? AssignedDevId { get; set; }
 
-        [Required]
         [Display(Name ="Submitted By")]
-        public int SubmittedById { get; set; }
+        public int? SubmittedById { get; set; }
 
-        [Required]
         [Display(Name ="Project")]
-        public int ProjectId { get; set; }
+        public int? ProjectId { get; set; }
 
     }
 }

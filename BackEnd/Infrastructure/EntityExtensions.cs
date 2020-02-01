@@ -13,10 +13,10 @@ namespace BackEnd.Data
                 Role = user.Role,
                 Projects = user.UsersProjects?
                             .Select(up => new DTO.Project
-                                {
-                                    Id = up.ProjectId,
-                                    Title = up.Project.Title
-                                })
+                            {
+                                Id = up.ProjectId,
+                                Title = up.Project.Title
+                            })
                             .ToList()
             };
 
@@ -29,12 +29,12 @@ namespace BackEnd.Data
                 Status = project.Status,
                 ProjectManagerId = project.ProjectManagerId,
                 ProjectManager = new DTO.User
-                                {
-                                    Id = project?.ProjectManagerId ?? 0,
-                                    Name = project.ProjectManager?.Name
-                                },
+                {
+                    Id = project?.ProjectManagerId ?? 0,
+                    Name = project.ProjectManager?.Name
+                },
                 Users = project.UsersProjects?
-                                .Select(up=> new DTO.User
+                                .Select(up => new DTO.User
                                 {
                                     Id = up.UserId,
                                     Name = up.User.Name
@@ -73,6 +73,5 @@ namespace BackEnd.Data
                     Status = ticket.Project?.Status
                 }
             };
-
     }
 }

@@ -11,7 +11,11 @@ namespace BackEnd.Data
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-           
+            modelbuilder.Entity<Ticket>()
+                 .HasOne(t => t.SubmittedBy)
+                 .WithMany(u => u.SubmittedTickets)
+                 .HasForeignKey(s => s.SubmittedById);
+
             modelbuilder.Entity<User>()
                 .HasIndex(u => u.EmailAddress)
                 .IsUnique();     

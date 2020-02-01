@@ -16,11 +16,11 @@ namespace DTO
         [StringLength(4000)]
         public String Description { get; set; } 
         
-        public String Status { get; set; }
-        
         [Required]
+        public String Status { get; set; }
+                
         [Display(Name="Project Manager")]
-        public int ProjectManagerId { get; set; }
+        public int? ProjectManagerId { get; set; }
                
     }
 }
