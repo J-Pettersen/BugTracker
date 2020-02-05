@@ -52,6 +52,19 @@ namespace BackEnd.Controllers
             return result;
         }
 
+        [HttpGet("{id}/users")]
+        public async Task<ActionResult<List<UserResponse>>> GetUsers(int id)
+        {
+            var users = await _db.Users.AsNoTracking()
+                                        .Include(up => up.UsersProjects)
+                                         .ThenInclude(u => u.User)
+                                        .Where(up => up.UsersProjects.Any(p => p.Project.Id == id))
+                                        .Select(u => u.MapUserResponse())
+                                        .ToListAsync();
+
+            return users;            
+        }
+
         [HttpPost]
         public async Task<ActionResult<ProjectResponse>> PostProject(DTO.Project input)
         {

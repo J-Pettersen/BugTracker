@@ -9,8 +9,7 @@ namespace FrontEnd.Services
     public interface IApiClient
     {
         Task<List<ProjectResponse>> GetProjects();
-        Task<ProjectResponse> GetProject(int id);
-        Task<List<ProjectResponse>> GetProjectsByUser(String email);
+        Task<ProjectResponse> GetProject(int id);        
         Task<bool> PostProject(Project project);
         Task PutProject(Project project);
         Task DeleteProject(int id);
@@ -24,6 +23,11 @@ namespace FrontEnd.Services
         Task<TicketResponse> GetTicket(int id);
         Task<bool> PostTicket(Ticket ticket);
         Task PutTicket(Ticket ticket);
+
+        Task<List<ProjectResponse>> GetProjectsByUser(String email);
+        Task<List<UserResponse>> GetUsersByProject(int id);
+        Task AddUserToProject(string email, int projectId);
+        Task RemoveUserFromProject(string email, int projectId);
 
 
 

@@ -103,7 +103,7 @@ namespace BackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<UserResponse>> AddProject(string email, int projectId)
+        public async Task<ActionResult<UserResponse>> AddUserToProject(string email, int projectId)
         {
             var user = await _db.Users.Include(a => a.UsersProjects)
                                                 .ThenInclude(sa => sa.User)
@@ -139,7 +139,7 @@ namespace BackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> RemoveSession(string email, int projectId)
+        public async Task<IActionResult> RemoveUserFromProject(string email, int projectId)
         {
             var user = await _db.Users.Include(a => a.UsersProjects)
                                               .SingleOrDefaultAsync(a => a.EmailAddress == email);
