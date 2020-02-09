@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DTO;
+using FrontEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -10,16 +12,23 @@ namespace FrontEnd.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        protected readonly IApiClient _apiClient;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IApiClient apiClient)
         {
-            _logger = logger;
+            _apiClient = apiClient;
         }
 
-        public void OnGet()
+        public IEnumerable<ProjectResponse> Projects { get; set; }
+        
+
+
+        public async Task OnGet()
         {
 
+            var projects = await _apiClient.GetProjects();
+
+            Projects = projects.OrderBy(p => p.Title);
         }
     }
 }

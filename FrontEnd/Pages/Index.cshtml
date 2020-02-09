@@ -1,6 +1,20 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    var title = "Projects";
+    ViewData["Title"] = title;
 }
+
+<div class="project-list">
+    <h1>@title</h1>
+
+    <div class="row">
+        <ul>
+            @foreach (var project in Model.Projects)
+            {
+                <li>@project.Title</li>
+            }
+        </ul>
+    </div>
+</div>
 
