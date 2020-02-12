@@ -72,7 +72,6 @@ namespace BackEnd.Controllers
             {
                 Title = input.Title,
                 Description = input.Description,
-                Status = input.Status,
                 ProjectManagerId = input.ProjectManagerId
             };
 
@@ -97,7 +96,6 @@ namespace BackEnd.Controllers
 
             project.Title = input.Title;
             project.Description = input.Description;
-            project.Status = input.Status;
             project.ProjectManagerId = input.ProjectManagerId;
 
             await _db.SaveChangesAsync();

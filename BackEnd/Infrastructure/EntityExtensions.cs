@@ -26,7 +26,6 @@ namespace BackEnd.Data
                 Id = project.Id,
                 Title = project.Title,
                 Description = project.Description,
-                Status = project.Status,
                 ProjectManagerId = project.ProjectManagerId,
                 ProjectManager = new DTO.User
                 {
@@ -70,7 +69,6 @@ namespace BackEnd.Data
                 {
                     Id = ticket?.ProjectId ?? 0,
                     Title = ticket.Project?.Title,
-                    Status = ticket.Project?.Status
                 }
             };
     }
