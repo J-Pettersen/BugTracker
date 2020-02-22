@@ -56,7 +56,7 @@ namespace BackEnd.Controllers
         [HttpGet("{email}/projects")]
         public async Task<ActionResult<List<ProjectResponse>>> GetProjects(string email)
         {
-            var projects = await _db.Projects.AsNoTracking()
+            var projects = await _db.Projects//.AsNoTracking()
                                              .Include(p => p.ProjectManager)
                                              .Include(u => u.UsersProjects)
                                                  .ThenInclude(p => p.Project)

@@ -23,6 +23,11 @@ namespace BackEnd.Data
             modelbuilder.Entity<UserProject>()
                 .HasKey(up => new { up.UserId, up.ProjectId });
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
+        {
+            optionBuilder.UseLazyLoadingProxies();
+        }
         
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }

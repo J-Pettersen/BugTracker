@@ -11,7 +11,7 @@ namespace BackEnd.Data
 
         public virtual ICollection<UserProject> UsersProjects { get; set; } = new List<UserProject>();
 
-        public User ProjectManager { get; set; }
+        public virtual User ProjectManager { get; set; }
 
     }
 }

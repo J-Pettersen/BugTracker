@@ -55,7 +55,7 @@ namespace BackEnd.Controllers
         [HttpGet("{id}/users")]
         public async Task<ActionResult<List<UserResponse>>> GetUsers(int id)
         {
-            var users = await _db.Users.AsNoTracking()
+            var users = await _db.Users//.AsNoTracking()
                                         .Include(up => up.UsersProjects)
                                          .ThenInclude(u => u.User)
                                         .Where(up => up.UsersProjects.Any(p => p.Project.Id == id))
