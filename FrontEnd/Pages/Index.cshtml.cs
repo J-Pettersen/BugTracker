@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using DTO;
 using FrontEnd.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FrontEnd.Pages
 {
@@ -18,7 +19,12 @@ namespace FrontEnd.Pages
         }
 
         public IEnumerable<ProjectResponse> Projects { get; set; }
-        
+
+        [TempData]
+        public string Message { get; set; }
+
+        public bool ShowMessage => !string.IsNullOrEmpty(Message);
+
 
 
         public async Task OnGet()

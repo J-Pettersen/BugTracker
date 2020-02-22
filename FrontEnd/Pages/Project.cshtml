@@ -1,0 +1,54 @@
+﻿@page "{id}"
+@model ProjectModel
+@{
+    ViewData["Title"] = "Project";
+}
+
+<h1>@Model.Project.Title</h1>
+
+<em><a asp-page="User" asp-route-id="@Model.Project.ProjectManager?.EmailAddress">@Model.Project.ProjectManager?.Name</a></em>
+
+<p>@Model.Project.Description</p>
+
+<div class="ticket-list">
+    <div calss="col-md-8 mt-1">
+        <div class="card shadow session h-100">
+            <div class="card-header">
+                <h4>Project Tickets</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].Priority)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ticket in Model.ProjectTickets.Where(ticket => ticket.ProjectId == @Model.Project.Id))
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.Priority)
+                            </td>
+                            <td>
+                                <a asp-page="/Admin/EditTicket" asp-route-id="@ticket.Id">Edit</a> 
+                                <a asp-page="Ticket" asp-route-id="@ticket.Id">Details</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
