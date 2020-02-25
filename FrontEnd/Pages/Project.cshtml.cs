@@ -20,6 +20,8 @@ namespace FrontEnd
 
         public List<TicketResponse> ProjectTickets { get; set; }
 
+        public List<UserResponse> AssignedUsers { get; set; }
+
         public async Task<IActionResult> OnGet(int id)
         {
             Project = await _apiClient.GetProject(id);
@@ -28,7 +30,9 @@ namespace FrontEnd
             {
                 return RedirectToPage("/Index");
             }
-            
+
+            AssignedUsers = await _apiClient.GetUsersByProject(id);
+
             ProjectTickets = await _apiClient.GetTickets();
 
             return Page();

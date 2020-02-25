@@ -6,7 +6,7 @@ namespace DTO
 {
     public class ProjectResponse : Project
     {
-        public User ProjectManager { get; set; }
+        public virtual User ProjectManager { get; set; }
         public virtual ICollection<User> AssignedUsers { get; set; } = new List<User>();
     }
 }

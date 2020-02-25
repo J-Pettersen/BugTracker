@@ -17,7 +17,7 @@ namespace FrontEnd
 
         }
 
-        public UserResponse User { get; set; }
+        public new UserResponse User { get; set; }
 
         public async Task<IActionResult> OnGet(string EmailAddress)
         {

@@ -17,17 +17,17 @@
     <div class="row">
         @foreach(var project in Model.Projects)
         {
-        <div class=" col-md-3 mb-4">
-            <div class="card shadow session h-100">
-                <div class="card-header">
-                    <a asp-page="Project" asp-route-id="@project.Id">@project.Title</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><a asp-page="User" asp-route-id="@project.ProjectManager?.EmailAddress">@project.ProjectManager?.Name</a></h5>
-                </div>
-                <a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@project.Id" class="btn btn-default btn-xs">Edit</a>
-            </div>            
-        </div>
+            <div class="col-md-3 mb-4">
+                <div class="card shadow session h-100">
+                    <div class="card-header">
+                        <a asp-page="Project" asp-route-id="@project.Id">@project.Title</a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><a asp-page="User" asp-route-id="@project.ProjectManager?.EmailAddress">@project.ProjectManager?.Name</a></h5>
+                    </div>
+                    <a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@project.Id" class="btn btn-default btn-xs">Edit</a>
+                </div>            
+            </div>
         }
     </div>
 </div>

@@ -38,7 +38,7 @@ namespace BackEnd.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectResponse>> GetProject(int id)
         {
-            var project = await _db.Projects.AsNoTracking()
+            var project = await _db.Projects//.AsNoTracking()
                                             .Include(s => s.UsersProjects)
                                                 .ThenInclude(ss => ss.User)
                                             .SingleOrDefaultAsync(s => s.Id == id);

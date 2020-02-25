@@ -36,7 +36,8 @@ namespace BackEnd.Data
                                 .Select(up => new DTO.User
                                 {
                                     Id = up.UserId,
-                                    Name = up.User.Name
+                                    Name = up.User.Name,
+                                    EmailAddress = up.User.EmailAddress
                                 })
                                 .ToList()
             };
