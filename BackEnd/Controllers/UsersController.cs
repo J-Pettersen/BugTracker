@@ -95,7 +95,7 @@ namespace BackEnd.Controllers
 
             var result = user.MapUserResponse();
 
-            return CreatedAtAction(nameof(GetUser), new { emailAddress = result.EmailAddress }, result);
+            return CreatedAtAction(nameof(GetUser), new { email = result.EmailAddress }, result);
         }
 
         [HttpPost("{email}/project/{projectId}")]

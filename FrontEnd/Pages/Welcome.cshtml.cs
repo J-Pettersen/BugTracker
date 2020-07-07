@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FrontEnd.Pages
 {
+    [SkipWelcome]
     public class WelcomeModel : PageModel
     {
         private readonly IApiClient _apiClient;
