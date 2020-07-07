@@ -11,12 +11,12 @@ namespace DTO
 
         [Required]
         [StringLength(200)]
-        public String Name { get; set; }
+        public virtual String Name { get; set; }
 
         [Required]
         [StringLength(256)]
         [Display(Name = "Email Address")]
-        public String EmailAddress { get; set; }
+        public virtual String EmailAddress { get; set; }
 
         [StringLength(50)]
         public String Role { get; set; }

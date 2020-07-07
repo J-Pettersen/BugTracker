@@ -7,7 +7,7 @@ namespace FrontEnd.Infrastructure
     public static class AuthConstants
     {
         public static readonly string IsAdmin = nameof(IsAdmin);
-        public static readonly string IsAttendee = nameof(IsAttendee);
+        public static readonly string IsAuthorised  = nameof(IsAuthorised); 
         public static readonly string TrueValue = "true";
     }
 }
@@ -24,6 +24,15 @@ namespace System.Security.Claims
 
         public static void MakeAdmin(this ClaimsIdentity identity) =>
             identity.AddClaim(new Claim(AuthConstants.IsAdmin, AuthConstants.TrueValue));
+
+        public static bool IsAuthorised(this ClaimsPrincipal principal) =>
+            principal.HasClaim(AuthConstants.IsAuthorised, AuthConstants.TrueValue);
+
+        public static void MakeAuthorised(this ClaimsPrincipal principal) =>
+            principal.Identities.First().MakeAuthorised();
+
+        public static void MakeAuthorised(this ClaimsIdentity identity) =>
+            identity.AddClaim(new Claim(AuthConstants.IsAuthorised, AuthConstants.TrueValue));
     }
 }
 

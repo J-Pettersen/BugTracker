@@ -27,6 +27,12 @@ namespace FrontEnd.Areas.Identity
                 identity.MakeAdmin();
             }
 
+            var authorised = await _apiClient.GetUser(user.UserName);
+            if (authorised != null)
+            {
+                identity.MakeAuthorised();
+            }
+
             return identity;
         }
     }
