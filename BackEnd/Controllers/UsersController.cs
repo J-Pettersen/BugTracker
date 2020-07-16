@@ -20,6 +20,7 @@ namespace BackEnd.Controllers
             _db = db;
         }
 
+        //GET api/Users
         [HttpGet]
         public async Task<ActionResult<List<UserResponse>>> GetUsers()
         {
@@ -32,6 +33,7 @@ namespace BackEnd.Controllers
             return users;
         }
 
+        //GET api/Users/{email}
         [HttpGet("{email}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,6 +55,8 @@ namespace BackEnd.Controllers
             return result ;
         }
 
+        //Get list of projects a user is assigned to when given a user's email address.
+        //GET api/Users/{email}/projects
         [HttpGet("{email}/projects")]
         public async Task<ActionResult<List<ProjectResponse>>> GetProjects(string email)
         {
@@ -67,6 +71,7 @@ namespace BackEnd.Controllers
             return projects;
         }
 
+        //POST api/Users
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -98,6 +103,8 @@ namespace BackEnd.Controllers
             return CreatedAtAction(nameof(GetUser), new { email = result.EmailAddress }, result);
         }
 
+        //Given a user's email address and a project's id, assign the user to the project.
+        //POST api/Users/{email}/project/{projectId}
         [HttpPost("{email}/project/{projectId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -134,6 +141,8 @@ namespace BackEnd.Controllers
             return result;
         }
 
+        //Given a user's email address and a project's id, remove the user from the project.
+        //DELETE api/Users/{email}/project/{projectId}
         [HttpDelete("{email}/project/{projecyId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
