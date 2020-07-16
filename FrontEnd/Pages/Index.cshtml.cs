@@ -12,6 +12,7 @@ namespace FrontEnd.Pages
     public class IndexModel : PageModel
     {
         protected readonly IApiClient _apiClient;
+        public bool IsAdmin { get; set; }
 
         public IndexModel(IApiClient apiClient)
         {
@@ -29,6 +30,7 @@ namespace FrontEnd.Pages
 
         public async Task OnGet()
         {
+            IsAdmin = User.IsAdmin();
 
             var projects = await _apiClient.GetProjects();
 

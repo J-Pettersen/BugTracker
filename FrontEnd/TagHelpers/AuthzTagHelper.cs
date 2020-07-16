@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FrontEnd.TagHelpers
 {
-    // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
     [HtmlTargetElement("*", Attributes = "authz")]
     [HtmlTargetElement("*", Attributes = "authz-policy")]
     public class AuthzTagHelper : TagHelper
@@ -72,3 +68,4 @@ namespace FrontEnd.TagHelpers
         }
     }
 }
+
