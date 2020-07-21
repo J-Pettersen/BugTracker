@@ -21,7 +21,7 @@ namespace BackEnd.Controllers
         {
             _db = db;
         }
-
+        //GET api/Projects
         [HttpGet]
         public async Task<ActionResult<List<ProjectResponse>>> GetProjects()
         {
@@ -35,11 +35,11 @@ namespace BackEnd.Controllers
             return projects;
         }
 
+        //GET api/Projects/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<ProjectResponse>> GetProject(int id)
         {
-            var project = await _db.Projects.AsNoTracking()
-                                            .Include(s => s.UsersProjects)
+            var project = await _db.Projects.Include(s => s.UsersProjects)
                                                 .ThenInclude(ss => ss.User)
                                             .SingleOrDefaultAsync(s => s.Id == id);
 
@@ -52,11 +52,12 @@ namespace BackEnd.Controllers
             return result;
         }
 
+        //Get list of users assigned to a project using the projects id.
+        //GET api/Projects/{id}/users
         [HttpGet("{id}/users")]
         public async Task<ActionResult<List<UserResponse>>> GetUsers(int id)
         {
-            var users = await _db.Users.AsNoTracking()
-                                        .Include(up => up.UsersProjects)
+            var users = await _db.Users.Include(up => up.UsersProjects)
                                          .ThenInclude(u => u.User)
                                         .Where(up => up.UsersProjects.Any(p => p.Project.Id == id))
                                         .Select(u => u.MapUserResponse())
@@ -65,6 +66,7 @@ namespace BackEnd.Controllers
             return users;            
         }
 
+        //POST api/Projects
         [HttpPost]
         public async Task<ActionResult<ProjectResponse>> PostProject(DTO.Project input)
         {
@@ -84,6 +86,7 @@ namespace BackEnd.Controllers
                                     new { id = result.Id }, result);
         }
 
+        //PUT api/Projects/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(int id, DTO.Project input)
         {
@@ -104,6 +107,7 @@ namespace BackEnd.Controllers
 
         }
 
+        //DELETE api/Projects/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<ProjectResponse>> DeleteProject(int id)
         {

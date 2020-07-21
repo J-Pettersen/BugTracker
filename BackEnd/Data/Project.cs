@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace BackEnd.Data
 {
@@ -11,7 +9,7 @@ namespace BackEnd.Data
 
         public virtual ICollection<UserProject> UsersProjects { get; set; } = new List<UserProject>();
 
-        public User ProjectManager { get; set; }
+        public virtual User ProjectManager { get; set; }
 
     }
 }

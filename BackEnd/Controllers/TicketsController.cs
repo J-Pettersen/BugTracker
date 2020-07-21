@@ -20,6 +20,7 @@ namespace BackEnd.Controllers
             _db = db;
         }
 
+        //GET api/Tickets
         [HttpGet]
         public async Task<ActionResult<List<TicketResponse>>> GetTickets()
         {
@@ -33,6 +34,7 @@ namespace BackEnd.Controllers
             return tickets;
         }
 
+        //GET api/Tickets/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<TicketResponse>> GetTicket(int id)
         {
@@ -50,6 +52,7 @@ namespace BackEnd.Controllers
             return ticket.MapTicketResponse();
         }
 
+        //POST api/Tickets
         [HttpPost]
         public async Task<ActionResult<TicketResponse>> PostTicket(DTO.Ticket input)
         {
@@ -74,6 +77,7 @@ namespace BackEnd.Controllers
             return CreatedAtAction(nameof(GetTicket), new { id = result.Id }, result);
         }
 
+        //PUT api/Tickets{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicket(int id, DTO.Ticket input)
         {
@@ -99,6 +103,7 @@ namespace BackEnd.Controllers
             return NoContent();
         }
 
+        //DELETE api/Tickets{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<TicketResponse>> DeleteTicket(int id)
         {

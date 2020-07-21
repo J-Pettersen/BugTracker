@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DTO
 {
     public class ProjectResponse : Project
     {
-        public User ProjectManager { get; set; }
-        public ICollection<User> Users { get; set; }
+        public virtual User ProjectManager { get; set; }
+        public virtual ICollection<User> AssignedUsers { get; set; } = new List<User>();
     }
 }

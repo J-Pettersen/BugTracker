@@ -4,6 +4,6 @@ namespace DTO
 {
     public class UserResponse : User
     {
-        public ICollection<Project> Projects { get; set; } = new List<Project>();
+        public virtual ICollection<Project> UsersProjects { get; set; } = new List<Project>();
     }
 }

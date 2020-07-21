@@ -10,14 +10,14 @@ namespace BackEnd.Data
                 Id = user.Id,
                 Name = user.Name,
                 EmailAddress = user.EmailAddress,
-                Role = user.Role,
-                Projects = user.UsersProjects?
-                            .Select(up => new DTO.Project
-                            {
-                                Id = up.ProjectId,
-                                Title = up.Project.Title
-                            })
-                            .ToList()
+                Role = user.Role,                
+                UsersProjects = user.UsersProjects?
+                                .Select(up => new DTO.Project
+                                {
+                                    Id = up.ProjectId,
+                                    Title = up.Project.Title
+                                })
+                                .ToList()
             };
 
         public static DTO.ProjectResponse MapProjectResponse(this Project project) =>
@@ -32,11 +32,12 @@ namespace BackEnd.Data
                     Id = project?.ProjectManagerId ?? 0,
                     Name = project.ProjectManager?.Name
                 },
-                Users = project.UsersProjects?
+                AssignedUsers = project.UsersProjects?
                                 .Select(up => new DTO.User
                                 {
                                     Id = up.UserId,
-                                    Name = up.User.Name
+                                    Name = up.User.Name,
+                                    EmailAddress = up.User.EmailAddress
                                 })
                                 .ToList()
             };
