@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DTO
@@ -14,10 +13,7 @@ namespace DTO
 
         [Required]
         [StringLength(4000)]
-        public String Description { get; set; } 
-        
-        [Required]
-        public String Status { get; set; }
+        public String Description { get; set; }         
                 
         [Display(Name="Project Manager")]
         public int? ProjectManagerId { get; set; }

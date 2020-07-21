@@ -10,14 +10,14 @@ namespace BackEnd.Data
                 Id = user.Id,
                 Name = user.Name,
                 EmailAddress = user.EmailAddress,
-                Role = user.Role,
-                Projects = user.UsersProjects?
-                            .Select(up => new DTO.Project
-                            {
-                                Id = up.ProjectId,
-                                Title = up.Project.Title
-                            })
-                            .ToList()
+                Role = user.Role,                
+                UsersProjects = user.UsersProjects?
+                                .Select(up => new DTO.Project
+                                {
+                                    Id = up.ProjectId,
+                                    Title = up.Project.Title
+                                })
+                                .ToList()
             };
 
         public static DTO.ProjectResponse MapProjectResponse(this Project project) =>
@@ -26,18 +26,18 @@ namespace BackEnd.Data
                 Id = project.Id,
                 Title = project.Title,
                 Description = project.Description,
-                Status = project.Status,
                 ProjectManagerId = project.ProjectManagerId,
                 ProjectManager = new DTO.User
                 {
                     Id = project?.ProjectManagerId ?? 0,
                     Name = project.ProjectManager?.Name
                 },
-                Users = project.UsersProjects?
+                AssignedUsers = project.UsersProjects?
                                 .Select(up => new DTO.User
                                 {
                                     Id = up.UserId,
-                                    Name = up.User.Name
+                                    Name = up.User.Name,
+                                    EmailAddress = up.User.EmailAddress
                                 })
                                 .ToList()
             };
@@ -70,7 +70,6 @@ namespace BackEnd.Data
                 {
                     Id = ticket?.ProjectId ?? 0,
                     Title = ticket.Project?.Title,
-                    Status = ticket.Project?.Status
                 }
             };
     }

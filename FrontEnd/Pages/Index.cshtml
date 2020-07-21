@@ -4,17 +4,34 @@
     var title = "Projects";
     ViewData["Title"] = title;
 }
+@if (Model.ShowMessage)
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>   </button>
+        @Model.Message
+    </div>
+}
 
 <div class="project-list">
     <h1>@title</h1>
-
     <div class="row">
-        <ul>
-            @foreach (var project in Model.Projects)
-            {
-                <li>@project.Title</li>
-            }
-        </ul>
+        @foreach(var project in Model.Projects)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card shadow session h-100">
+                    <div class="card-header">
+                        <h5><a asp-page="Project" asp-route-id="@project.Id">@project.Title</a></h5>
+                    </div>
+                    <div class="card-body">
+                        <p>@project.ProjectManager?.Name</p>
+                    </div>
+                    @if (Model.IsAdmin)
+                    {
+                        <a asp-page="/Admin/EditProject" asp-route-id="@project.Id" class="btn btn-default btn-xs">Edit</a>
+                    }
+                </div>            
+            </div>
+        }
     </div>
 </div>
 

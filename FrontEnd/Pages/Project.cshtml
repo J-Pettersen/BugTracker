@@ -1,0 +1,123 @@
+﻿@page "{id}"
+@model ProjectModel
+@{
+    ViewData["Title"] = "Project";
+}
+
+<h1>@Model.Project.Title</h1>
+<em>Project Manager, @Model.Project.ProjectManager?.Name</em>
+<p>@Model.Project.Description</p>
+<a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@Model.Project.Id" class="btn btn-default btn-xs">Edit</a>
+<br />
+
+
+
+<div class="mt-4">
+    <div class="card shadow session h-100">
+        <div class="card-header">
+            <h4>Assigned Developers</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignedUsers[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignedUsers[0].EmailAddress)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignedUsers[0].Role)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.AssignedUsers)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.EmailAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => user.Role)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div calss="mt-6">
+    <div class="card shadow session h-100">
+        <div class="card-header">
+            <h4>Project Tickets</h4>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectTickets[0].Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectTickets[0].AssignedDev.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectTickets[0].SubmittedBy.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectTickets[0].Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectTickets[0].Priority)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProjectTickets[0].CreatedOn)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in Model.ProjectTickets.Where(ticket => ticket.ProjectId == @Model.Project.Id))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.AssignedDev.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.SubmittedBy.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.Priority)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => ticket.CreatedOn)
+                            </td>
+                            <td>
+                                @if (Model.IsAdmin)
+                                {
+                                   <a authz-policy="Admin" asp-page="/Admin/EditTicket" asp-route-id="@ticket.Id">Edit |</a> 
+                                 }
+                                <a asp-page="Ticket" asp-route-id="@ticket.Id">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

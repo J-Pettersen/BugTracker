@@ -65,8 +65,7 @@ namespace FrontEnd.Services
 
             response.EnsureSuccessStatusCode();
         }
-
-        public async Task DeleteProject(int id)
+                public async Task DeleteProject(int id)
         {
             var response = await _httpClient.DeleteAsync($"/api/projects/{id}");
 
@@ -74,7 +73,7 @@ namespace FrontEnd.Services
             {
                 return;
             }
-
+            
             response.EnsureSuccessStatusCode();
         }
 
@@ -103,8 +102,8 @@ namespace FrontEnd.Services
             }
 
             response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadAsAsync<UserResponse>();
+            
+           return await response.Content.ReadAsAsync<UserResponse>();
         }
 
         public async Task<bool> PostUser(User user )
@@ -185,7 +184,7 @@ namespace FrontEnd.Services
 
 
 
-        //cross class methods
+        ////cross class methods
 
         public async Task<List<ProjectResponse>> GetProjectsByUser(string email)
         {

@@ -1,0 +1,119 @@
+﻿@page "{id}"
+@model FrontEnd.TicketModel
+@{
+    ViewData["Title"] = "Ticket";
+}
+
+
+<div class="row">
+    <div class="card shadow h-100 col-12">
+        <div class="card-header">
+            <h4>Ticket Details</h4>
+            <a asp-page="/Admin/EditTicket" asp-route-id="@Model.Ticket.Id">Edit Ticket</a>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Title
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.Title</p>
+                    </div>
+                </div>
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Project
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.Project?.Title</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-12 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Description
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.Description</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Assigned Developer
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.AssignedDev?.Name</p>
+                    </div>
+                </div>
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Submitted by
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.SubmittedBy?.Name</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Priotity
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.Priority</p>
+                    </div>
+                </div>
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Status
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.Status</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Ticket Type
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.TicketType</p>
+                    </div>
+                </div>
+                <div class="card col-6 border-0">
+                    <div class="card-header">
+                        <h6>
+                            Created On
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p>@Model.Ticket.CreatedOn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

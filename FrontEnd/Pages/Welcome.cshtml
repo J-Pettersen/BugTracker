@@ -1,0 +1,40 @@
+﻿@page
+@using DTO
+@model FrontEnd.Pages.WelcomeModel
+
+<h2>Welcome @User.Identity.Name</h2>
+<p>
+    Confirm your user details to access site features.
+</p>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="authorise.EmailAddress" value="@User.Identity.Name" type="hidden" />
+    <div class="form-group">
+        <label asp-for="authorise.Name" class="control-label"></label>
+        <div class="row">
+            <div class="col-md-6">
+                <input asp-for="authorise.Name" class="form-control" />
+            </div>
+        </div>
+        <span asp-validation-for="authorise.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="authorise.EmailAddress" class="control-label"></label>
+        <div class="row">
+            <div class="col-md-6">
+                <input asp-for="authorise.EmailAddress" class="form-control" />
+            </div>
+        </div>
+        <span asp-validation-for="authorise.EmailAddress" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <div class="">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
