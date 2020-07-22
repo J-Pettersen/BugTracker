@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FrontEnd.Services;
 using DTO;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FrontEnd.Pages.Admin
 {
@@ -17,6 +20,7 @@ namespace FrontEnd.Pages.Admin
 
         [BindProperty]
         public Ticket Ticket { get; set; }
+        public List<SelectListItem> Users { get; set; }
 
         [TempData]
         public string Message { get; set; }
@@ -25,6 +29,16 @@ namespace FrontEnd.Pages.Admin
 
         public async Task OnGet(int id)
         {
+            Users = new List<SelectListItem>();
+            var users = await _apiClient.GetUsers();
+            foreach (UserResponse user in users)
+            {
+                var userId = user.Id;
+                var userName = user.Name;
+                SelectListItem item = new SelectListItem() { Value = userId.ToString(), Text = userName };
+                Users.Add(item);
+            };
+
             var ticket = await _apiClient.GetTicket(id);
             Ticket = new Ticket
             {
@@ -53,7 +67,6 @@ namespace FrontEnd.Pages.Admin
             await _apiClient.PutTicket(Ticket);
 
             return Page();
-        }
-        
+        }   
     }
 }
