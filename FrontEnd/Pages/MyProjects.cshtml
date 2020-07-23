@@ -8,6 +8,10 @@
     <div class="card shadow h-100 col-12">
         <div class="card-header">
             <h4>My Projects</h4>
+            @if (Model.IsAdmin)
+            {
+                <a asp-page="/Admin/CreateProject" class="btn btn-default btn-xs">Create New Project</a>
+            }
         </div>
         <div class="card-body">
             @if (Model.IsAuthorised == false)
