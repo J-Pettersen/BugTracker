@@ -1,19 +1,22 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using FrontEnd.Services;
-using DTO;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using DTO;
+using FrontEnd.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 
-namespace FrontEnd.Pages.Admin
+namespace FrontEnd.Pages
 {
-    public class EditTicketModel : PageModel
+    public class CreateTicketModel : PageModel
     {
         private readonly IApiClient _apiClient;
-
-        public EditTicketModel(IApiClient apiClient)
+        public int pId;
+        public CreateTicketModel(IApiClient apiClient)
         {
             _apiClient = apiClient;
         }
@@ -26,7 +29,6 @@ namespace FrontEnd.Pages.Admin
         public string Message { get; set; }
 
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
-
         public async Task OnGet(int id)
         {
             //Gets list of all users and puts them in selectList to be used in drop down list
@@ -39,35 +41,27 @@ namespace FrontEnd.Pages.Admin
                 SelectListItem item = new SelectListItem() { Value = userId.ToString(), Text = userName };
                 Users.Add(item);
             };
-
-            var ticket = await _apiClient.GetTicket(id);
-            Ticket = new Ticket
-            {
-                Id = ticket.Id,
-                Title = ticket.Title,
-                Description = ticket.Description,
-                Priority = ticket.Priority,
-                Status = ticket.Status,
-                TicketType = ticket.TicketType,
-                CreatedOn = ticket.CreatedOn,
-                AssignedDevId = ticket.AssignedDevId,
-                SubmittedById = ticket.SubmittedById,
-                ProjectId = ticket.ProjectId
-            };
+            pId = id;
         }
-
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPost(int id)
         {
+            var email = User.FindFirstValue(ClaimTypes.Name).ToString();
+            var SubmitUser = await _apiClient.GetUser(email);
+
+            Ticket.Status = "Open";
+            Ticket.SubmittedById = SubmitUser.Id;
+            Ticket.ProjectId = id;
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            Message = "Ticket updated successfully!";
+            Message = "Ticket successfully created!";
 
-            await _apiClient.PutTicket(Ticket);
+            await _apiClient.PostTicket(Ticket);
 
             return Page();
-        }   
+        }
     }
 }

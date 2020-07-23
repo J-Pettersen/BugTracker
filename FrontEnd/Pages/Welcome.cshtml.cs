@@ -36,6 +36,7 @@ namespace FrontEnd.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            authorise.Role = "Developer";
             var success = await _apiClient.PostUser(authorise);
 
             if (!success)

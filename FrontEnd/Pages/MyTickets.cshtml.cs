@@ -1,38 +1,36 @@
-﻿using DTO;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using DTO;
 using FrontEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
 
-namespace FrontEnd
+namespace FrontEnd.Pages
 {
-    public class MyProjectsModel : PageModel
+    public class MyTicketsModel : PageModel
     {
-
         private readonly IApiClient _apiClient;
 
-        public MyProjectsModel(IApiClient apiClient)
+        public MyTicketsModel(IApiClient apiClient)
         {
             _apiClient = apiClient;
         }
 
-        public List<ProjectResponse> MyProjects { get; set; }
+        public List<TicketResponse> Tickets { get; set; }
+        public UserResponse TicketUser { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsAuthorised { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
-            
             IsAuthorised = User.IsAuthorised();
             IsAdmin = User.IsAdmin();
             if (IsAuthorised)
             {
+                Tickets = await _apiClient.GetTickets();
                 var email = User.FindFirstValue(ClaimTypes.Name).ToString();
-                MyProjects = await _apiClient.GetProjectsByUser(email);
+                TicketUser = await _apiClient.GetUser(email);
             }            
             return Page();
         }

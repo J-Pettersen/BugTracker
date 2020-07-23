@@ -11,27 +11,38 @@
         @Model.Message
     </div>
 }
-
-<div class="project-list">
-    <h1>@title</h1>
-    <div class="row">
-        @foreach(var project in Model.Projects)
-        {
-            <div class="col-md-3 mb-4">
-                <div class="card shadow session h-100">
-                    <div class="card-header">
-                        <h5><a asp-page="Project" asp-route-id="@project.Id">@project.Title</a></h5>
-                    </div>
-                    <div class="card-body">
-                        <p>@project.ProjectManager?.Name</p>
-                    </div>
-                    @if (Model.IsAdmin)
+<div class="row">
+    <div class="card shadow h-100 col-12">
+        <div class="card-header">
+            <h4>Projects</h4>
+            @if (Model.IsAdmin)
+            {
+                <a asp-page="/Admin/CreateProject" class="btn btn-default btn-xs">Create New Project</a>
+            }
+        </div>
+        <div class="card-body">
+            <div class="project-list">
+                <div class="row">
+                    @foreach (var project in Model.Projects)
                     {
-                        <a asp-page="/Admin/EditProject" asp-route-id="@project.Id" class="btn btn-default btn-xs">Edit</a>
+                        <div class="col-md-3 mb-4">
+                            <div class="card shadow session h-100">
+                                <div class="card-header">
+                                    <h5><a asp-page="Project" asp-route-id="@project.Id">@project.Title</a></h5>
+                                </div>
+                                <div class="card-body">
+                                    <p>@project.ProjectManager?.Name</p>
+                                </div>
+                                @if (Model.IsAdmin)
+                                {
+                                    <a asp-page="/Admin/EditProject" asp-route-id="@project.Id" class="btn btn-default btn-xs">Edit</a>
+                                }
+                            </div>
+                        </div>
                     }
-                </div>            
+                </div>
             </div>
-        }
+        </div>
     </div>
 </div>
-
+           

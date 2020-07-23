@@ -1,7 +1,7 @@
-﻿@page "{id}"
-@model FrontEnd.EditProjectModel
+﻿@page
+@model FrontEnd.Pages.Admin.CreateProjectModel
 @{
-    ViewData["Title"] = "EditProject";
+    ViewData["Title"] = "Create Project";
 }
 
 @if (Model.ShowMessage)
@@ -19,10 +19,8 @@
         <form method="post" class="form-horizontal">
             <div class="card-body">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <input asp-for="Project.Id" type="hidden" />
-                <input asp-for="Project.ProjectManagerId" type="hidden" />
                 <div class="row">
-                    <div class="card col-12 border-0">
+                    <div class="card col-6 border-0">
                         <div class="form-group">
                             <div class="card-header">
                                 <label asp-for="Project.Title"></label>
@@ -30,6 +28,17 @@
                             <div class="card-body">
                                 <input asp-for="Project.Title" class="form-control" />
                                 <span asp-validation-for="Project.Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-6 border-0">
+                        <div class="form-group">
+                            <div class="card-header">
+                                <label asp-for="Project.ProjectManagerId"></label>
+                            </div>
+                            <div class="card-body">
+                                <select asp-for="Project.ProjectManagerId" asp-items="@Model.Users">
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -49,9 +58,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
-                        <a asp-page="/Project" asp-route-id="@Model.Project.Id" class="btn btn-primary float-right">Back</a>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        
                     </div>
                 </div>
             </div>

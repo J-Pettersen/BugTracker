@@ -1,8 +1,54 @@
-﻿@page "{emailAddress}"
+﻿@page
 @model FrontEnd.MyProjectsModel
 @{
     ViewData["Title"] = "MyProjects";
 }
 
-<h1>My Projects</h1>
-
+<div class="row">
+    <div class="card shadow h-100 col-12">
+        <div class="card-header">
+            <h4>My Projects</h4>
+            @if (Model.IsAdmin)
+            {
+                <a asp-page="/Admin/CreateProject" class="btn btn-default btn-xs">Create New Project</a>
+            }
+        </div>
+        <div class="card-body">
+            @if (Model.IsAuthorised == false)
+            {
+                <p>Please Login to an authorised account to view your projects.</p>
+            }
+            else
+            {
+                @if (Model.MyProjects.Count <= 0)
+                {
+                    <p>You are not currently assigned to any projects.</p>
+                }
+                else
+                {
+                    <div class="project-list">
+                        <div class="row">
+                            @foreach (var project in Model.MyProjects)
+                            {
+                                <div class="col-md-3 mb-4">
+                                    <div class="card shadow session h-100">
+                                        <div class="card-header">
+                                            <h5><a asp-page="Project" asp-route-id="@project.Id">@project.Title</a></h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>@project.ProjectManager?.Name</p>
+                                        </div>
+                                        @if (Model.IsAdmin)
+                                        {
+                                            <a asp-page="/Admin/EditProject" asp-route-id="@project.Id" class="btn btn-default btn-xs">Edit</a>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
