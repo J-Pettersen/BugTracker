@@ -77,7 +77,7 @@ namespace BackEnd.Controllers
             return CreatedAtAction(nameof(GetTicket), new { id = result.Id }, result);
         }
 
-        //PUT api/Tickets{id}
+        //PUT api/Tickets/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTicket(int id, DTO.Ticket input)
         {
@@ -103,7 +103,7 @@ namespace BackEnd.Controllers
             return NoContent();
         }
 
-        //DELETE api/Tickets{id}
+        //DELETE api/Tickets/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult<TicketResponse>> DeleteTicket(int id)
         {

@@ -65,7 +65,7 @@ namespace FrontEnd.Services
 
             response.EnsureSuccessStatusCode();
         }
-                public async Task DeleteProject(int id)
+        public async Task DeleteProject(int id)
         {
             var response = await _httpClient.DeleteAsync($"/api/projects/{id}");
 
@@ -174,7 +174,7 @@ namespace FrontEnd.Services
 
         public async Task PutTicket(Ticket ticket)
         {
-            var response = await _httpClient.PutAsJsonAsync($"/api/users/{ticket.Id}", ticket);
+            var response = await _httpClient.PutAsJsonAsync($"/api/tickets/{ticket.Id}", ticket);
 
             response.EnsureSuccessStatusCode();
         }

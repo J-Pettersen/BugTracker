@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using BackEnd.Data;
 using DTO;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BackEnd.Controllers
 {
@@ -31,7 +32,7 @@ namespace BackEnd.Controllers
                                 .ToListAsync();
 
             return users;
-        }
+        }        
 
         //GET api/Users/{email}
         [HttpGet("{email}")]
@@ -143,7 +144,7 @@ namespace BackEnd.Controllers
 
         //Given a user's email address and a project's id, remove the user from the project.
         //DELETE api/Users/{email}/project/{projectId}
-        [HttpDelete("{email}/project/{projecyId}")]
+        [HttpDelete("{email}/project/{projectId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -172,6 +173,8 @@ namespace BackEnd.Controllers
 
             return NoContent();
         }
+
+
 
     }
 }
