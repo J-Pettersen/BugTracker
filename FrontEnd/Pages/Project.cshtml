@@ -7,7 +7,7 @@
 <h1>@Model.Project.Title</h1>
 <em>Project Manager, @Model.Project.ProjectManager?.Name</em>
 <p>@Model.Project.Description</p>
-<a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@Model.Project.Id" class="btn btn-default btn-xs">Edit</a>
+<a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@Model.Project.Id">Edit</a>
 <br />
 
 

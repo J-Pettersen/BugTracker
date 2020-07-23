@@ -1,0 +1,78 @@
+﻿@page
+@model FrontEnd.Pages.MyTicketsModel
+@{
+    ViewData["Title"] = "My Tickets";
+}
+
+<div class="row">
+    <div class="card shadow h-100 col-12">
+        <div class="card-header">
+            <h4>My Tickets</h4>
+        </div>
+        <div class="card-body">
+            @if (Model.IsAuthorised == false)
+            {
+                <p>Please Login to an authorised account to view your tickets.</p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tickets[0].Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tickets[0].AssignedDev.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tickets[0].SubmittedBy.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tickets[0].Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tickets[0].Priority)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tickets[0].CreatedOn)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ticket in Model.Tickets.Where(ticket => ticket.AssignedDevId == Model.TicketUser.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.AssignedDev.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.SubmittedBy.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Priority)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.CreatedOn)
+                                </td>
+                                <td>
+                                    @if (Model.IsAdmin)
+                                    {
+                                        <a authz-policy="Admin" asp-page="/Admin/EditTicket" asp-route-id="@ticket.Id">Edit |</a>
+                                    }
+                                    <a asp-page="Ticket" asp-route-id="@ticket.Id">Details</a>
+                                </td>
+                            </tr>
+                        }
+                </table>                
+            }
+        </div>
+    </div>
+</div>
