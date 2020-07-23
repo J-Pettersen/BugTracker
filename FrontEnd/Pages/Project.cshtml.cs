@@ -12,6 +12,7 @@ namespace FrontEnd
     {
         private readonly IApiClient _apiClient;
         public bool IsAdmin { get; set; }
+        public bool IsAuthorised { get; set; }
 
         public ProjectModel(IApiClient apiClient)
         {
@@ -27,6 +28,7 @@ namespace FrontEnd
         public async Task<IActionResult> OnGet(int id)
         {
             Project = await _apiClient.GetProject(id);
+            IsAuthorised = User.IsAuthorised();
             IsAdmin = User.IsAdmin();
 
             if (Project == null)

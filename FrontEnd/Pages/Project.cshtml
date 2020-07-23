@@ -7,8 +7,8 @@
 <h1>@Model.Project.Title</h1>
 <em>Project Manager, @Model.Project.ProjectManager?.Name</em>
 <p>@Model.Project.Description</p>
-<a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@Model.Project.Id">Edit</a>
-<br />
+<a authz-policy="Admin" asp-page="/Admin/EditProject" asp-route-id="@Model.Project.Id">Edit Project</a>
+<br/>
 
 
 
@@ -60,64 +60,68 @@
             <h4>Project Tickets</h4>
         </div>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProjectTickets[0].Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProjectTickets[0].AssignedDev.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProjectTickets[0].SubmittedBy.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProjectTickets[0].Status)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProjectTickets[0].Priority)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ProjectTickets[0].CreatedOn)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var ticket in Model.ProjectTickets.Where(ticket => ticket.ProjectId == @Model.Project.Id))
-                    {
+            @if (Model.IsAuthorised)
+            {
+                <a asp-page="/CreateTicket" asp-route-id="@Model.Project.Id">Create New Ticket</a>
+            }
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.AssignedDev.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.SubmittedBy.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Status)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.Priority)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => ticket.CreatedOn)
-                            </td>
-                            <td>
-                                @if (Model.IsAdmin)
-                                {
-                                   <a authz-policy="Admin" asp-page="/Admin/EditTicket" asp-route-id="@ticket.Id">Edit |</a> 
-                                 }
-                                <a asp-page="Ticket" asp-route-id="@ticket.Id">Details</a>
-                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].AssignedDev.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].SubmittedBy.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].Priority)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProjectTickets[0].CreatedOn)
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        @foreach (var ticket in Model.ProjectTickets.Where(ticket => ticket.ProjectId == @Model.Project.Id))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Title)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.AssignedDev.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.SubmittedBy.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.Priority)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => ticket.CreatedOn)
+                                </td>
+                                <td>
+                                    @if (Model.IsAdmin)
+                                    {
+                                        <a authz-policy="Admin" asp-page="/Admin/EditTicket" asp-route-id="@ticket.Id">Edit |</a>
+                                    }
+                                    <a asp-page="Ticket" asp-route-id="@ticket.Id">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
     </div>
 </div>
 

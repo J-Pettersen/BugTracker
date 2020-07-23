@@ -1,25 +1,29 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using FrontEnd.Services;
-using DTO;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using BackEnd.Data;
+using DTO;
+using FrontEnd.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FrontEnd.Pages.Admin
 {
-    public class EditTicketModel : PageModel
+    public class CreateProjectModel : PageModel
     {
+
         private readonly IApiClient _apiClient;
 
-        public EditTicketModel(IApiClient apiClient)
+        public CreateProjectModel(IApiClient apiClient)
         {
             _apiClient = apiClient;
         }
-
         [BindProperty]
-        public Ticket Ticket { get; set; }
+        public DTO.Project Project { get; set; }
+        public ProjectResponse TheProject { get; set; }
+
         public List<SelectListItem> Users { get; set; }
 
         [TempData]
@@ -27,32 +31,17 @@ namespace FrontEnd.Pages.Admin
 
         public bool ShowMessage => !string.IsNullOrEmpty(Message);
 
-        public async Task OnGet(int id)
+        public async Task OnGet()
         {
             //Gets list of all users and puts them in selectList to be used in drop down list
             Users = new List<SelectListItem>();
             var users = await _apiClient.GetUsers();
-            foreach (UserResponse user in users)
+            foreach (var user in users)
             {
                 var userId = user.Id;
                 var userName = user.Name;
                 SelectListItem item = new SelectListItem() { Value = userId.ToString(), Text = userName };
                 Users.Add(item);
-            };
-
-            var ticket = await _apiClient.GetTicket(id);
-            Ticket = new Ticket
-            {
-                Id = ticket.Id,
-                Title = ticket.Title,
-                Description = ticket.Description,
-                Priority = ticket.Priority,
-                Status = ticket.Status,
-                TicketType = ticket.TicketType,
-                CreatedOn = ticket.CreatedOn,
-                AssignedDevId = ticket.AssignedDevId,
-                SubmittedById = ticket.SubmittedById,
-                ProjectId = ticket.ProjectId
             };
         }
 
@@ -63,11 +52,11 @@ namespace FrontEnd.Pages.Admin
                 return Page();
             }
 
-            Message = "Ticket updated successfully!";
+            Message = "Project successfully created!";
 
-            await _apiClient.PutTicket(Ticket);
+            await _apiClient.PostProject(Project);
 
             return Page();
-        }   
+        }
     }
 }
